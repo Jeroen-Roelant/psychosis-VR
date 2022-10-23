@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeColorOnLook : MonoBehaviour
+public class Apear : MonoBehaviour
 {
     public Camera camera;
-    public 
+    public
     bool IsTargetVisible(Camera c, GameObject go)
     {
         var planes = GeometryUtility.CalculateFrustumPlanes(c);
@@ -21,6 +21,7 @@ public class ChangeColorOnLook : MonoBehaviour
     private void Start()
     {
         GameObject gameObject = this.gameObject;
+        gameObject.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -35,7 +36,7 @@ public class ChangeColorOnLook : MonoBehaviour
             Debug.Log("Is not visible");
             if (viewed)
             {
-                gameObject.GetComponent<Renderer>().material.color = Color.red;
+                gameObject.SetActive(true);
             }
         }
     }
