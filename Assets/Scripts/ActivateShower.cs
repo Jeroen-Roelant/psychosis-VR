@@ -25,8 +25,8 @@ public class ActivateShower : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            Debug.Log("bububuubub");
-            bathroomDoor.GetComponent<XRGrabInteractable>().gameObject.SetActive(true);
+            //bathroomDoor.GetComponent<XRGrabInteractable>().gameObject.SetActive(true);
+            bathroomDoor.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 95, 0),  Time.deltaTime * 5.0f);
             shower.gameObject.GetComponent<AudioSource>().Play();
         }
     }
