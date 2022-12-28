@@ -15,6 +15,6 @@ public class test : MonoBehaviour
     }
     public void Move()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position,newpos, Time.deltaTime * 1);
+        this.transform.position = Vector3.MoveTowards(this.transform.position,newpos, Time.deltaTime * 4.5f);
     }
 }

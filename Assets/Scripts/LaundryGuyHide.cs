@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class LaundryGuyHide : MonoBehaviour
 {
-    public Transform guyTransform;
+    private Transform guyTransform;
 
     public Vector3 normalPosition = new Vector3(-1.506f, -1.185f, 19.496f);
     public Vector3 hiddenPosition = new Vector3(-1.506f, -2.861f, 19.496f);
@@ -52,6 +52,7 @@ public class LaundryGuyHide : MonoBehaviour
 
     void Hide()
     {
+        Debug.Log("bruuh");
         guyTransform.position = Vector3.MoveTowards (guyTransform.transform.position, hiddenPosition, Time.deltaTime * 1);
     }
 
