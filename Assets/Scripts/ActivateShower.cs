@@ -7,6 +7,20 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ActivateShower : MonoBehaviour
 {
     public GameObject shower;
+    
+    private string _timerFinished = "false";
+    public float timer = 100f;
+    
+    public AudioClip audioClip;
+    public GameObject player;
+
+    void ActivateTimer()
+    {
+        timer = -Time.deltaTime;
+
+        if (timer <= 0f)
+            _timerFinished = "true";
+    }
 
     public GameObject bathroomDoor;
     // Start is called before the first frame update
@@ -18,7 +32,15 @@ public class ActivateShower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (_timerFinished == "pending")
+        {
+            ActivateTimer();
+        }
+        if (_timerFinished == "true")
+        {
+            player.GetComponent<AudioSource>().clip = audioClip;
+            player.GetComponent<AudioSource>().Play();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,6 +50,7 @@ public class ActivateShower : MonoBehaviour
             //bathroomDoor.GetComponent<XRGrabInteractable>().gameObject.SetActive(true);
             bathroomDoor.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 95, 0),  Time.deltaTime * 5.0f);
             shower.gameObject.GetComponent<AudioSource>().Play();
+            _timerFinished = "pending";
         }
     }
 }
