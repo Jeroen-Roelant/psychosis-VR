@@ -9,14 +9,15 @@ public class ActivateShower : MonoBehaviour
     public GameObject shower;
     
     private string _timerFinished = "false";
-    public float timer = 100f;
+    public float timer = 5f;
+    private bool _soundPlayed = false;
     
     public AudioClip audioClip;
     public GameObject player;
 
-    void ActivateTimer()
+    private void ActivateTimer()
     {
-        timer = -Time.deltaTime;
+        timer -= Time.deltaTime;
 
         if (timer <= 0f)
             _timerFinished = "true";
@@ -36,10 +37,11 @@ public class ActivateShower : MonoBehaviour
         {
             ActivateTimer();
         }
-        if (_timerFinished == "true")
+        if (_timerFinished == "true" && !_soundPlayed)
         {
             player.GetComponent<AudioSource>().clip = audioClip;
             player.GetComponent<AudioSource>().Play();
+            _soundPlayed = true;
         }
     }
 
@@ -50,6 +52,7 @@ public class ActivateShower : MonoBehaviour
             //bathroomDoor.GetComponent<XRGrabInteractable>().gameObject.SetActive(true);
             bathroomDoor.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 95, 0),  Time.deltaTime * 5.0f);
             shower.gameObject.GetComponent<AudioSource>().Play();
+            
             _timerFinished = "pending";
         }
     }

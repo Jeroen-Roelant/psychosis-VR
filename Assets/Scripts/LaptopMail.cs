@@ -2,23 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LaptopMail : MonoBehaviour
 {
-    public GameObject Laptop;
-    public Material LaptopMaterial;
+    [FormerlySerializedAs("Laptop")] public GameObject laptop;
+    [FormerlySerializedAs("LaptopMaterial")] public Material laptopMaterial;
 
-    private bool MailReceived = false;
+    private bool _mailReceived = false;
     
     private string _timerFinished = "false";
-    public float timer = 100f;
+    public float timer = 5f;
+    private bool _soundPlayed = false;
     
     public AudioClip audioClip;
     public GameObject player;
     
-    void ActivateTimer()
+    private void ActivateTimer()
     {
-        timer = -Time.deltaTime;
+        timer -= Time.deltaTime;
 
         if (timer <= 0f)
             _timerFinished = "true";
@@ -37,25 +39,23 @@ public class LaptopMail : MonoBehaviour
         {
             ActivateTimer();
         }
-        if (_timerFinished == "true")
+        if (_timerFinished == "true" && !_soundPlayed)
         {
             player.GetComponent<AudioSource>().clip = audioClip;
             player.GetComponent<AudioSource>().Play();
+            _soundPlayed = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (MailReceived == false)
+        if (_mailReceived == false)
         {
-            Laptop.gameObject.GetComponent<AudioSource>().Play();
-            Laptop.gameObject.GetComponent<Renderer>().material = LaptopMaterial;
-            MailReceived = true;
-            
-            player.GetComponent<AudioSource>().clip = audioClip;
-            player.GetComponent<AudioSource>().Play();
-            
-            //_timerFinished = "pending";
+            laptop.gameObject.GetComponent<AudioSource>().Play();
+            laptop.gameObject.GetComponent<Renderer>().material = laptopMaterial;
+            _mailReceived = true;
+
+            _timerFinished = "pending";
         }
     }
 }

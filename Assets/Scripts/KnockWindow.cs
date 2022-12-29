@@ -6,10 +6,11 @@ using UnityEngine;
 public class KnockWindow : MonoBehaviour
 {
     private GameObject _window;
-
-
+    private bool _knockPlayed = false;
+    
     private string _timerFinished = "false";
-    public float timer = 100f;
+    public float timer = 5f;
+    private bool _soundPlayed = false;
     
     public AudioClip audioClip;
     public GameObject player;
@@ -34,17 +35,22 @@ public class KnockWindow : MonoBehaviour
         {
             ActivateTimer();
         }
-        if (_timerFinished == "true")
+        if (_timerFinished == "true"&& !_soundPlayed)
         {
             player.GetComponent<AudioSource>().clip = audioClip;
             player.GetComponent<AudioSource>().Play();
+            _soundPlayed = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        _window.GetComponent<AudioSource>().Play();
-        player.GetComponent<AudioSource>().clip = audioClip;
-        _timerFinished = "pending";
+        if (!_knockPlayed)
+        {
+            _window.GetComponent<AudioSource>().Play();
+            _knockPlayed = true;
+
+            _timerFinished = "pending";
+        }
     }
 }
