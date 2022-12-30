@@ -6,12 +6,15 @@ using UnityEngine.Serialization;
 
 public class LaundryGuyHide : MonoBehaviour
 {
+    public GameObject mirrorGuy;
+    
     private Transform guyTransform;
 
     public Vector3 normalPosition = new Vector3(-1.506f, -1.185f, 19.496f);
     public Vector3 hiddenPosition = new Vector3(-1.506f, -2.861f, 19.496f);
     
-    private bool inTrigger = false;
+    private bool _inTrigger = false;
+    private bool _sawGuy = false;
     
     // Start is called before the first frame update
     void Start()
@@ -22,14 +25,13 @@ public class LaundryGuyHide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!inTrigger)
-        {
-            Appear();
-        }
-        else
-        {
+        if (_inTrigger)
             Hide();
-        }
+        // else if (!_inTrigger)
+        //     Appear();
+        
+        if (!_sawGuy)
+            mirrorGuy.SetActive(true);
     }
 
 
@@ -37,7 +39,7 @@ public class LaundryGuyHide : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            inTrigger = true;
+            _inTrigger = true;
         }
         
     }
@@ -46,14 +48,14 @@ public class LaundryGuyHide : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            inTrigger = false;
+            _inTrigger = false;
         }
     }
 
     void Hide()
     {
-        Debug.Log("bruuh");
         guyTransform.position = Vector3.MoveTowards (guyTransform.transform.position, hiddenPosition, Time.deltaTime * 1);
+        _sawGuy = true;
     }
 
     void Appear()

@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShowerOpen : MonoBehaviour
 {
     public GameObject showerGuy;
+    public GameObject basketGuy;
 
     public GameObject shower;
 
@@ -29,6 +30,7 @@ public class ShowerOpen : MonoBehaviour
             showerGuy.gameObject.SetActive(false);
             showerObject.gameObject.SetActive(false);
             shower.GetComponent<ParticleSystem>().Stop();
+            basketGuy.SetActive(true);
         }
     }
 }
