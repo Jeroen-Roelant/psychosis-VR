@@ -8,7 +8,7 @@ public class LaundryGuyHide : MonoBehaviour
 {
     public GameObject mirrorGuy;
     
-    private Transform guyTransform;
+    private Transform _guyTransform;
 
     public Vector3 normalPosition = new Vector3(-1.506f, -1.185f, 19.496f);
     public Vector3 hiddenPosition = new Vector3(-1.506f, -2.861f, 19.496f);
@@ -19,7 +19,7 @@ public class LaundryGuyHide : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        guyTransform = this.gameObject.GetComponent<Transform>();
+        _guyTransform = this.gameObject.GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class LaundryGuyHide : MonoBehaviour
         // else if (!_inTrigger)
         //     Appear();
         
-        if (!_sawGuy)
+        if (_sawGuy)
             mirrorGuy.SetActive(true);
     }
 
@@ -54,12 +54,12 @@ public class LaundryGuyHide : MonoBehaviour
 
     void Hide()
     {
-        guyTransform.position = Vector3.MoveTowards (guyTransform.transform.position, hiddenPosition, Time.deltaTime * 1);
+        _guyTransform.position = Vector3.MoveTowards (_guyTransform.transform.position, hiddenPosition, Time.deltaTime * 1);
         _sawGuy = true;
     }
 
     void Appear()
     {
-        guyTransform.position = Vector3.MoveTowards (guyTransform.transform.position, normalPosition, Time.deltaTime * 1);
+        _guyTransform.position = Vector3.MoveTowards (_guyTransform.transform.position, normalPosition, Time.deltaTime * 1);
     }
 }

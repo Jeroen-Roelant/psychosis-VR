@@ -17,13 +17,18 @@ public class LaptopMail : MonoBehaviour
     
     public AudioClip audioClip;
     public GameObject player;
+
+    public GameObject nextHallucination;
     
     private void ActivateTimer()
     {
         timer -= Time.deltaTime;
 
         if (timer <= 0f)
+        {
             _timerFinished = "true";
+            nextHallucination.GetComponent<BoxCollider>().enabled = true;
+        }
     }
     
     // Start is called before the first frame update

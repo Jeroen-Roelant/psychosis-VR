@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class footsteps : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class footsteps : MonoBehaviour
     public AudioClip audioClip;
     public GameObject player;
 
+    public GameObject door;
     private void ActivateTimer()
     {
         timer -= Time.deltaTime;
@@ -45,12 +47,19 @@ public class footsteps : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (_footstepsPlayed == false)
+        if (other.CompareTag("Player"))
         {
-            this.gameObject.GetComponent<AudioSource>().Play();
-            _footstepsPlayed = true;
+            if (_footstepsPlayed == false)
+            {
+                Debug.Log(other.name);
+                this.gameObject.GetComponent<AudioSource>().Play();
+                _footstepsPlayed = true;
 
-            _timerFinished = "pending";
+                _timerFinished = "pending";
+
+                door.GetComponent<XRGrabInteractable>().enabled = true;
+            }
         }
+        
     }
 }

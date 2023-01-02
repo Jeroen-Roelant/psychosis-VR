@@ -17,7 +17,7 @@ public class KnockWindow : MonoBehaviour
 
     void ActivateTimer()
     {
-        timer = -Time.deltaTime;
+        timer -= Time.deltaTime;
 
         if (timer <= 0f)
             _timerFinished = "true";
