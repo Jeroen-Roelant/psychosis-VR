@@ -7,7 +7,7 @@ public class test : MonoBehaviour
     private Vector3 newpos;
     public void Start()
     {
-        newpos = this.transform.position + new Vector3(0, 0, -20);
+        newpos = this.transform.position + new Vector3(0, 0, -25);
     }
     public void Update()
     {

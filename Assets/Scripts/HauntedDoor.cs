@@ -14,6 +14,8 @@ public class HauntedDoor : MonoBehaviour
     private bool _isOpen = false;
     public bool doorStopped;
     public bool alreadyHappened = false;
+    
+    private bool _soundPlayed = false;
 
     private void Start()
     {
@@ -37,6 +39,7 @@ public class HauntedDoor : MonoBehaviour
             {
                 StartCoroutine(RotateDoor(openRotation));
                 _isOpen = true;
+                _soundPlayed = false;
             }
 
 
@@ -45,7 +48,18 @@ public class HauntedDoor : MonoBehaviour
             {
                 StartCoroutine(RotateDoor(closedRotation));
                 _isOpen = false;
+                
             }
+
+            if (!_isOpen && !doorStopped)
+            {
+                if (!_soundPlayed)
+                {
+                    _soundPlayed = true;
+                    this.GetComponent<AudioSource>().Play();
+                }
+            }
+            
         }
     }   
     
