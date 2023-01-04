@@ -9,42 +9,36 @@ namespace SojaExiles
 	{
 
 		public Animator openandclose;
+		public AudioClip openDoor;
+		public AudioClip closeDoor;
 		public bool open;
-		public Transform Player;
+		public bool action;
 
 		void Start()
 		{
 			open = false;
 		}
 
-		void OnMouseOver()
+		void Update()
 		{
 			{
-				if (Player)
+				if (action)
 				{
-					float dist = Vector3.Distance(Player.position, transform.position);
-					if (dist < 15)
-					{
 						if (open == false)
 						{
-							if (Input.GetMouseButtonDown(0))
-							{
+
 								StartCoroutine(opening());
-							}
 						}
 						else
 						{
 							if (open == true)
 							{
-								if (Input.GetMouseButtonDown(0))
-								{
 									StartCoroutine(closing());
-								}
 							}
 
 						}
 
-					}
+					action = false;
 				}
 
 			}
@@ -53,7 +47,7 @@ namespace SojaExiles
 
 		IEnumerator opening()
 		{
-			print("you are opening the door");
+			this.GetComponent<AudioSource>().PlayOneShot(openDoor);
 			openandclose.Play("Opening");
 			open = true;
 			yield return new WaitForSeconds(.5f);
@@ -61,7 +55,7 @@ namespace SojaExiles
 
 		IEnumerator closing()
 		{
-			print("you are closing the door");
+			this.GetComponent<AudioSource>().PlayOneShot(closeDoor);
 			openandclose.Play("Closing");
 			open = false;
 			yield return new WaitForSeconds(.5f);
