@@ -30,7 +30,6 @@ public class HallManager : MonoBehaviour
         {
             if (start)
             {
-                print("tset");
                 var door = Random.Range(0, doors.Length);
                 doors[door].GetComponent<opencloseDoor>().action = true;
             }

@@ -12,30 +12,44 @@ public class Radio : MonoBehaviour
     
     public AudioClip sound;
     private GameObject _this;
-    private bool _radioFinished;
+    private bool _radioFinished = false;
     private bool _soundPlayed = false;
     
     // Start is called before the first frame update
     void Start()
     {
         _this = this.gameObject;
-        locomotion.GetComponent<ContinuousMoveProviderBase>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!this.GetComponent<AudioSource>().isPlaying)
+        if (_radioFinished)
         {
-            locomotion.GetComponent<ContinuousMoveProviderBase>().enabled = true;
-            if (!_soundPlayed)
+            if (!this.GetComponent<AudioSource>().isPlaying)
             {
-                player.GetComponent<AudioSource>().clip = sound;
-                player.GetComponent<AudioSource>().Play();
-                _soundPlayed = true;
+                locomotion.GetComponent<ContinuousMoveProviderBase>().enabled = true;
+                if (!_soundPlayed)
+                {
+                    player.GetComponent<AudioSource>().clip = sound;
+                    player.GetComponent<AudioSource>().Play();
+                    _soundPlayed = true;
+                }
             }
         }
+    }
 
-        
+    private void OnTriggerEnter(Collider other)
+    {
+        print("triggered");
+        if (other.gameObject.tag == "Player")
+        {
+            if (!_radioFinished)
+            {
+                this.GetComponent<AudioSource>().Play();
+                _radioFinished = true;
+                locomotion.GetComponent<ContinuousMoveProviderBase>().enabled = false;
+            }
+        }
     }
 }
