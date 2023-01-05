@@ -5,8 +5,7 @@ using UnityEngine;
 public class ChangeColorOnLook : MonoBehaviour
 {
     public Camera camera;
-    public 
-    bool IsTargetVisible(Camera c, GameObject go)
+    public bool IsTargetVisible(Camera c, GameObject go)
     {
         var planes = GeometryUtility.CalculateFrustumPlanes(c);
         var point = go.transform.position;
