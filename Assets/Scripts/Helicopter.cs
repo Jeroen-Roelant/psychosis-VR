@@ -11,8 +11,9 @@ public class Helicopter : MonoBehaviour
     private bool _on;
     
     public Transform endPoint;
-    
     public float speed;
+    public GameObject player;
+    public AudioClip sound;
     
     // Start is called before the first frame update
     void Start()
@@ -42,5 +43,11 @@ public class Helicopter : MonoBehaviour
         _on = true;
         this.gameObject.GetComponent<AudioSource>().Play();
         Debug.Log("HELIKOPTER HELIKOPTER");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        player.GetComponent<AudioSource>().clip = sound;
+        player.GetComponent<AudioSource>().Play();
     }
 }
