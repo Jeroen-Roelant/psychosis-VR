@@ -28,7 +28,6 @@ public class Radio : MonoBehaviour
         {
             if (!this.GetComponent<AudioSource>().isPlaying)
             {
-                locomotion.GetComponent<ContinuousMoveProviderBase>().enabled = true;
                 if (!_soundPlayed)
                 {
                     player.GetComponent<AudioSource>().clip = sound;
@@ -48,7 +47,6 @@ public class Radio : MonoBehaviour
             {
                 this.GetComponent<AudioSource>().Play();
                 _radioFinished = true;
-                locomotion.GetComponent<ContinuousMoveProviderBase>().enabled = false;
             }
         }
     }
