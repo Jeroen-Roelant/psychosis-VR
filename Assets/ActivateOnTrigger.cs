@@ -7,6 +7,8 @@ using UnityEngine;
 public class ActivateOnTrigger : MonoBehaviour
 {
     public GameObject ifActiveObject;
+
+    public GameObject canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class ActivateOnTrigger : MonoBehaviour
     {
         if (ifActiveObject.active && other.tag == "Player")
         {
-            this.gameObject.SetActive(true);
+            canvas.SetActive(true);
         }
     }
 }
